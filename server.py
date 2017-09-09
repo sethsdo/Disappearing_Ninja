@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect,session,g
+from flask import Flask, render_template, request, redirect, session
+
 app = Flask(__name__)
 app.secret_key = 'ThisIsSecret'
 
@@ -13,28 +14,40 @@ def ninjas():
     return render_template('ninja.html')
 
 @app.route('/ninja/<color>')
-def ninjas1(color):
+def ninjas_color(color):
     print color
     if color == 'blue':
-        print 'green' 
-        return render_template('ninja_color.html', current="raphael.jpg")
+        print 'blue'
+        return redirect('/blue')
+    elif color == 'orange':
+        return redirect('/orange')
+    elif color == 'purple':
+        return redirect('/purple')
+    elif color == 'red':
+        return redirect('/red')
     else:
-        return render_template('ninja_color.html')
+        return redirect('/random')
 
-# @app.route('/ninja/orange')
-# def ninjas2():
-#     print "blue"
-#     return render_template('ninja_color.html')
 
-# @app.route('/ninja/red')
-# def nijas3():
-#     print "blue"
-#     return render_template('ninja_color.html')
+@app.route('/blue')
+def show_blue():
+    return render_template('ninja_color.html', current="leonardo.jpg")
 
-# @app.route('/ninja/purple')
-# def nijas4():
-#     print "blue"
-#     return render_template('ninja_color.html')
+@app.route('/orange')
+def ninjas2():
+    return render_template('ninja_color.html', current="michelangelo.jpg")
+
+@app.route('/red')
+def ninjas3():
+    return render_template('ninja_color.html', current="raphael.jpg")
+
+@app.route('/purple')
+def ninjas4():
+    return render_template('ninja_color.html', current="donatello.jpg")
+
+@app.route('/random')
+def not_ninja():
+    return render_template('ninja_color.html', current="notapril.jpg")
 
 app.run(debug=dev)
 
